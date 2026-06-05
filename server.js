@@ -59,7 +59,7 @@ const server = http.createServer((req, res) => {
     });
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
     console.log(`\n  🃏  Turup is running!\n`);
     console.log(`     Local:  http://localhost:${PORT}`);
     console.log(`     Press Ctrl+C to stop.\n`);

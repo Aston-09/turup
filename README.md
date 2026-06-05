@@ -45,6 +45,7 @@ Turup/
 │   ├── ai.js           – AI logic (easy/hard)
 │   └── ui.js           – DOM rendering helpers
 ├── assets/             – Images, sounds, icons
+├── render.yaml         – Render deploy blueprint
 ├── .gitignore          – Git ignore rules
 └── README.md
 ```
@@ -83,6 +84,20 @@ npm run dev
 |---------|-------------|
 | `npm run dev` | Start dev server with nodemon (auto-reload) |
 | `npm start` | Start production server |
+
+## Deploy to Render
+
+1. Push this repo to **GitHub**
+2. Go to [render.com](https://render.com) → **New** → **Web Service**
+3. Connect your GitHub repo
+4. Render will auto-detect settings from `render.yaml`:
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
+5. Click **Create Web Service** — your game will be live in ~1 minute!
+
+> **Tip:** You can also click the button below to deploy instantly:
+>
+> [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/<your-username>/Turup)
 
 ## License
 
