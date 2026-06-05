@@ -1,0 +1,22 @@
+{
+  "name": "turup",
+  "version": "1.0.0",
+  "description": "A browser-based implementation of **Turup** (also known as *Court Piece*), a classic Indian trick-taking card game for 4 players.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

@@ -1,0 +1,155 @@
+/* ═══════════════════════════════════════════════════
+   cards.css – Individual card styling
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Card base ─────────────────────────────────── */
+.card {
+    width: var(--card-w, 80px);
+    height: var(--card-h, 112px);
+    border-radius: 0.5rem;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    transition:
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.2s;
+    user-select: none;
+}
+
+/* ─── Front face ────────────────────────────────── */
+.card-red,
+.card-black {
+    background: linear-gradient(145deg, hsl(0, 0%, 98%), hsl(0, 0%, 90%));
+    border: 1px solid hsl(0, 0%, 80%);
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.card-red  { color: hsl(0, 75%, 45%); }
+.card-black { color: hsl(0, 0%, 15%); }
+
+/* Corners */
+.card-corner {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    gap: 0;
+}
+.card-corner-top {
+    top: 4px;
+    left: 5px;
+}
+.card-corner-bottom {
+    bottom: 4px;
+    right: 5px;
+    transform: rotate(180deg);
+}
+.card-rank {
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+.card-suit {
+    font-size: 0.65rem;
+}
+
+/* Center symbol */
+.card-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-suit-big {
+    font-size: 2rem;
+    opacity: 0.25;
+}
+
+/* ─── Back face ─────────────────────────────────── */
+.card-back-face {
+    background: linear-gradient(135deg, hsl(220, 45%, 22%), hsl(240, 40%, 18%));
+    border: 1px solid hsl(220, 30%, 30%);
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.35),
+        inset 0 0 30px rgba(0, 0, 0, 0.15);
+}
+.card-back-pattern {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 4px,
+            hsla(210, 50%, 40%, 0.12) 4px,
+            hsla(210, 50%, 40%, 0.12) 8px
+        );
+    border-radius: inherit;
+}
+.card-back-inner {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid hsla(210, 60%, 55%, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: hsla(210, 60%, 60%, 0.7);
+    background: hsla(210, 60%, 55%, 0.08);
+}
+
+/* ─── Interaction states ────────────────────────── */
+.card-clickable {
+    cursor: pointer;
+}
+.card-clickable:hover {
+    transform: translateY(-10px) scale(1.04);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        0 0 15px var(--accent-glow);
+    z-index: 10;
+}
+.card-clickable:active {
+    transform: translateY(-4px) scale(0.98);
+}
+
+/* Valid-play highlight */
+.card-valid {
+    box-shadow:
+        0 0 0 2px var(--accent),
+        0 0 12px var(--accent-glow);
+}
+.card-valid::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 0.5rem;
+    border: 2px solid var(--accent);
+    animation: validPulse 1.5s infinite;
+    pointer-events: none;
+}
+@keyframes validPulse {
+    0%, 100% { opacity: 0.4; }
+    50%      { opacity: 1; }
+}
+
+/* ─── Small card (trick pile) ───────────────────── */
+.card-small {
+    border-radius: 0.35rem;
+    background: linear-gradient(145deg, hsl(0, 0%, 98%), hsl(0, 0%, 90%));
+    border: 1px solid hsl(0, 0%, 80%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.card-small .card-rank { font-size: 1rem; }
+.card-small .card-suit { font-size: 0.9rem; }
+
+.card-red.card-small { color: hsl(0, 75%, 45%); }
+.card-black.card-small { color: hsl(0, 0%, 15%); }

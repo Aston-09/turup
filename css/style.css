@@ -1,0 +1,396 @@
+/* ═══════════════════════════════════════════════════
+   style.css – Global layout, theme & components
+   ═══════════════════════════════════════════════════ */
+
+/* ─── Design tokens ─────────────────────────────── */
+:root {
+    --font: 'Inter', system-ui, sans-serif;
+
+    /* Palette */
+    --bg-1: hsl(225, 25%, 8%);
+    --bg-2: hsl(225, 20%, 12%);
+    --surface: hsla(225, 20%, 16%, 0.85);
+    --glass: hsla(225, 20%, 22%, 0.45);
+    --border: hsla(0, 0%, 100%, 0.06);
+
+    --accent: hsl(210, 100%, 60%);
+    --accent-soft: hsl(210, 80%, 75%);
+    --accent-glow: hsla(210, 100%, 55%, 0.3);
+    --danger: hsl(0, 75%, 60%);
+    --success: hsl(145, 65%, 50%);
+    --gold: hsl(42, 90%, 60%);
+
+    --text: hsl(0, 0%, 93%);
+    --text-muted: hsl(0, 0%, 58%);
+
+    /* Sizing */
+    --card-w: 80px;
+    --card-h: 112px;
+    --radius: 0.75rem;
+    --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Reset ─────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    font-family: var(--font);
+    background: var(--bg-1);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background: linear-gradient(160deg, var(--bg-1), hsl(250, 25%, 10%));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* ─── Header ────────────────────────────────────── */
+.game-header {
+    text-align: center;
+    padding: 1.2rem 1rem 0.4rem;
+}
+.game-header h1 {
+    font-size: 2.6rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--accent), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 18px var(--accent-glow));
+}
+.subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 0.15rem;
+}
+
+/* ─── Info bar ──────────────────────────────────── */
+.info-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.4rem;
+}
+.info-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.1rem;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.35rem 0.85rem;
+    backdrop-filter: blur(12px);
+}
+.info-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+}
+.info-value {
+    font-size: 1rem;
+    font-weight: 600;
+}
+.info-value.accent { color: var(--accent); }
+.trump-display { font-size: 1.4rem; }
+.trump-display.hidden { visibility: hidden; }
+
+/* ─── Table ─────────────────────────────────────── */
+.table-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+}
+.table {
+    position: relative;
+    width: 100%;
+    max-width: 820px;
+    height: 480px;
+    background:
+        radial-gradient(ellipse at center, hsl(140, 30%, 16%) 0%, hsl(140, 35%, 10%) 100%);
+    border-radius: 1.25rem;
+    border: 3px solid hsl(140, 20%, 22%);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.7),
+        inset 0 0 80px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Felt texture overlay */
+.table::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+/* ─── Player labels ─────────────────────────────── */
+.player-label {
+    position: absolute;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: hsla(0, 0%, 0%, 0.35);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.4rem;
+    z-index: 5;
+    white-space: nowrap;
+}
+.label-north { top: 6px;    left: 50%; transform: translateX(-50%); }
+.label-south { bottom: 6px; left: 50%; transform: translateX(-50%); }
+.label-west  { left: 6px;   top: 50%;  transform: translateY(-50%); writing-mode: vertical-lr; }
+.label-east  { right: 6px;  top: 50%;  transform: translateY(-50%); writing-mode: vertical-rl; }
+
+.tricks-badge {
+    color: var(--gold);
+    font-size: 0.7rem;
+}
+
+/* ─── Hands (card containers) ───────────────────── */
+.hand {
+    position: absolute;
+    display: flex;
+    z-index: 2;
+}
+
+.hand-south {
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 6px;
+}
+.hand-north {
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 4px;
+}
+.hand-west {
+    left: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 2px;
+}
+.hand-east {
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Side hands: smaller cards, rotated */
+.hand-west .card,
+.hand-east .card {
+    width: 38px;
+    height: 54px;
+}
+.hand-west .card-rank,
+.hand-east .card-rank,
+.hand-west .card-suit,
+.hand-east .card-suit,
+.hand-west .card-suit-big,
+.hand-east .card-suit-big {
+    font-size: 0.5rem;
+}
+
+/* ─── Trick pile (center) ───────────────────────── */
+.trick-pile {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 160px;
+    z-index: 3;
+}
+
+.pile-card {
+    position: absolute;
+}
+
+.pile-south { bottom: 0; left: 50%; transform: translateX(-50%); }
+.pile-north { top: 0;    left: 50%; transform: translateX(-50%); }
+.pile-west  { left: 0;   top: 50%;  transform: translateY(-50%); }
+.pile-east  { right: 0;  top: 50%;  transform: translateY(-50%); }
+
+/* card enter animation */
+.card-enter {
+    animation: cardDrop 0.35s ease-out both;
+}
+@keyframes cardDrop {
+    from { opacity: 0; transform: translateY(-20px) scale(0.8); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pile-card .card-small {
+    width: 60px;
+    height: 84px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* ─── Footer controls ──────────────────────────── */
+.game-footer {
+    padding: 0.6rem 1rem 1.2rem;
+    display: flex;
+    gap: 0.75rem;
+}
+
+.btn {
+    font-family: var(--font);
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.55rem 1.4rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent), hsl(230, 90%, 60%));
+    color: #fff;
+}
+.btn-primary:hover {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px var(--accent-glow);
+}
+.btn-secondary {
+    background: var(--glass);
+    color: var(--text);
+    border: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+}
+.btn-secondary:hover {
+    background: hsla(225, 20%, 28%, 0.6);
+    transform: translateY(-2px);
+}
+
+/* ─── Overlays ──────────────────────────────────── */
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: hsla(0, 0%, 0%, 0.7);
+    backdrop-filter: blur(6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+.overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+.overlay-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 2rem 2.5rem;
+    text-align: center;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+    max-width: 420px;
+    width: 90%;
+}
+.overlay-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+}
+
+/* Trump choices */
+.trump-choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+.trump-btn {
+    font-family: var(--font);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--glass);
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+}
+.trump-btn:hover {
+    border-color: var(--accent);
+    background: var(--accent-glow);
+    transform: scale(1.04);
+}
+.suit.red   { color: hsl(0, 80%, 58%); }
+.suit.black { color: var(--text); }
+
+/* Round-over */
+.round-result {
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+}
+.round-detail {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.2rem;
+}
+
+/* ─── Toast ─────────────────────────────────────── */
+.message-toast {
+    position: fixed;
+    bottom: 5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 0.5rem 1.4rem;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 90;
+}
+.message-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ─── Responsive ────────────────────────────────── */
+@media (max-width: 640px) {
+    .game-header h1 { font-size: 1.8rem; }
+    .table { height: 400px; }
+    .hand-south { gap: 3px; }
+    .info-bar { gap: 0.5rem; }
+    .info-item { padding: 0.25rem 0.55rem; }
+    :root { --card-w: 64px; --card-h: 90px; }
+}

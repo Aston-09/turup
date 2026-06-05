@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Turup – Classic Indian Card Game</title>
+    <meta name="description" content="Play Turup (Court Piece) – the classic Indian trick-taking card game – right in your browser against AI opponents." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/cards.css" />
+</head>
+<body>
+
+<!-- ─── Header ─────────────────────────────────── -->
+<header class="game-header">
+    <h1>Turup</h1>
+    <p class="subtitle">Classic Indian Trick-Taking Card Game</p>
+</header>
+
+<!-- ─── Info bar ───────────────────────────────── -->
+<div class="info-bar" id="info-bar"></div>
+
+<!-- ─── Table ──────────────────────────────────── -->
+<main class="table-wrapper">
+    <div class="table" id="game-table">
+
+        <!-- Player labels -->
+        <span class="player-label label-north" id="label-north">Partner (North)</span>
+        <span class="player-label label-west"  id="label-west">West</span>
+        <span class="player-label label-east"  id="label-east">East</span>
+        <span class="player-label label-south" id="label-south">You</span>
+
+        <!-- Hands -->
+        <div class="hand hand-north" id="hand-north"></div>
+        <div class="hand hand-west"  id="hand-west"></div>
+        <div class="hand hand-east"  id="hand-east"></div>
+        <div class="hand hand-south" id="hand-south"></div>
+
+        <!-- Trick pile (center) -->
+        <div class="trick-pile" id="trick-pile"></div>
+    </div>
+</main>
+
+<!-- ─── Controls ───────────────────────────────── -->
+<footer class="game-footer">
+    <button id="new-game-btn" class="btn btn-primary">New Game</button>
+    <button id="difficulty-btn" class="btn btn-secondary">🟢 Easy</button>
+</footer>
+
+<!-- ─── Trump selector overlay ─────────────────── -->
+<div class="overlay" id="trump-overlay">
+    <div class="overlay-card">
+        <h2>Choose the Trump Suit</h2>
+        <div class="trump-choices">
+            <button class="trump-btn" data-suit="♠"><span class="suit black">♠</span> Spades</button>
+            <button class="trump-btn" data-suit="♥"><span class="suit red">♥</span> Hearts</button>
+            <button class="trump-btn" data-suit="♦"><span class="suit red">♦</span> Diamonds</button>
+            <button class="trump-btn" data-suit="♣"><span class="suit black">♣</span> Clubs</button>
+        </div>
+    </div>
+</div>
+
+<!-- ─── Round-over overlay ─────────────────────── -->
+<div class="overlay" id="round-overlay">
+    <div class="overlay-card">
+        <h2 class="round-result">Round result</h2>
+        <p class="round-detail"></p>
+        <button class="btn btn-primary round-continue-btn">Next Round</button>
+    </div>
+</div>
+
+<!-- ─── Toast ──────────────────────────────────── -->
+<div class="message-toast" id="message-toast"></div>
+
+<script src="js/main.js" type="module"></script>
+</body>
+</html>
